@@ -1,0 +1,18 @@
+{
+  "name": "videostream",
+  "version": "1.0.0",
+  "dependencies": {
+    "angular": "latest",
+    "angular-bootstrap": "latest",
+    "angular-route": "latest",
+    "angular-uuid-service": "~0.1.0",
+    "animate.css": "latest",
+    "bootstrap": "latest",
+    "font-awesome": "latest",
+    "jplayer": "~2.9.2",
+    "jquery": "latest",
+    "moment": "latest",
+    "video.js": "~4.12.13",
+    "videojs-markers": "~0.5.0"
+  }
+}

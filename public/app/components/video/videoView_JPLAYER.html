@@ -1,0 +1,211 @@
+<!-- video player -->
+<!--<link href="http://vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
+<script src="http://vjs.zencdn.net/4.12/video.js"></script>
+<style type="text/css">
+    .vjs-default-skin { color: #8290b5; }
+    .vjs-default-skin .vjs-play-progress,
+    .vjs-default-skin .vjs-volume-level { background-color: #3969e8 }
+    .vjs-default-skin .vjs-control-bar,
+    .vjs-default-skin .vjs-big-play-button { background: rgba(11,10,10,0.95) }
+    .vjs-default-skin .vjs-slider { background: rgba(11,10,10,0.31666666666666665) }
+    .vjs-default-skin .vjs-control-bar { font-size: 66% }
+</style>-->
+<link type="text/css" href="assets/libs/jplayer/dist/skin/pink.flag/css/jplayer.pink.flag.css" rel="stylesheet"/>
+<script type="text/javascript" src="assets/libs/jplayer/dist/jplayer/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="assets/libs/jplayer/dist/add-on/jquery.jplayer.inspector.min.js"></script>
+
+<script type="text/javascript">
+    var videoCurrentTime = 0;
+    $(document).ready(function () {
+        $("#jquery_jplayer_1").jPlayer({
+            ready: function () {
+                $(this).jPlayer("setMedia", {
+                    /*title: "Lucas Stradford (Tyler Relph Training)",
+                     poster: "/assets/videos/output/lukedrills2.png",
+                     m4v: "/assets/videos/output/lukedrills2.m4v",
+                     ogv: "/assets/videos/output/lukedrills2.ogv",
+                     //mp4: "/assets/videos/output/lukedrills2.mp4",
+                     webmv: "/assets/videos/output/lukedrills2.webm",
+                     m3u8v: "/assets/videos/output/lukedrills2.m3u8"*/
+                    title: "Lucas Stradford (Tyler Relph Training)",
+                    poster: "/assets/videos/output/lukedrills2.png",
+                    m4v: "/api/videoFind"
+                });
+            },
+            ended: function () { // The $.jPlayer.event.ended event
+                //$(this).jPlayer("play"); // Repeat the media
+            },
+            timeupdate: function(event) {
+                videoCurrentTime = event.jPlayer.status.currentTime;
+                console.log("currentTime(seconds):", videoCurrentTime);
+            },
+            cssSelectorAncestor: "#jp_container_1",
+            size: {width: "640px", height: "360px", cssClass: "jp-video-360p"},
+            swfPath: "/assets/libs/jplayer/dist/jplayer",
+            supplied: "m4v",
+            //supplied: "m4v,ogv,webmv,m3u8v",
+            useStateClassSkin: true,
+            autoBlur: false,
+            smoothPlayBar: true,
+            keyEnabled: true,
+            remainingDuration: true,
+            toggleDuration: true
+        });
+        //$("#jplayer_inspector").jPlayerInspector({jPlayer:$("#jquery_jplayer_1")});
+
+
+        /*m4v: "/assets/videos/output/lukedrills1.m4v",
+         ogv: "/assets/videos/output/lukedrills1.ogg",
+         mp4: "/assets/videos/output/lukedrills1.mp4",
+         webmv: "/assets/videos/output/lukedrills1.webm",
+         m3u8v: "/assets/videos/output/lukedrills1.m3u8"*/
+        $("#setMedia1").click(function () {
+            console.log("media 1");
+            //$("#jquery_jplayer_1").jPlayer("pause");
+            $("#jquery_jplayer_1").jPlayer("setMedia", {
+                /*title: "Lucas Stradford (Tyler Relph Training)",
+                 poster: "/assets/videos/output/lukedrills2.png",
+                 m4v: "/assets/videos/output/lukedrills2.m4v",
+                 ogv: "/assets/videos/output/lukedrills2.ogv",
+                 //mp4: "/assets/videos/output/lukedrills2.mp4",
+                 webmv: "/assets/videos/output/lukedrills2.webm",
+                 m3u8v: "/assets/videos/output/lukedrills2.m3u8"*/
+                title: "Lucas Stradford (Tyler Relph Training)",
+                poster: "/assets/videos/output/lukedrills1.png",
+                m4v: "/api/videoFind"
+            });
+        });
+
+        $("#setMedia2").click(function () {
+            console.log("media 2");
+            //$("#jquery_jplayer_1").jPlayer("pause");
+            $("#jquery_jplayer_1").jPlayer("setMedia", {
+                /*title: "Lucas Stradford (Tyler Relph Training)",
+                 poster: "/assets/videos/output/lukedrills2.png",
+                 m4v: "/assets/videos/output/lukedrills2.m4v",
+                 ogv: "/assets/videos/output/lukedrills2.ogv",
+                 //mp4: "/assets/videos/output/lukedrills2.mp4",
+                 webmv: "/assets/videos/output/lukedrills2.webm",
+                 m3u8v: "/assets/videos/output/lukedrills2.m3u8"*/
+                title: "Lucas Stradford (Tyler Relph Training)",
+                poster: "/assets/videos/output/lukedrills2.png",
+                m4v: "/api/videoFind"
+            });
+        });
+
+        $("#jumpToStart").click(function () {
+            console.log("play 0");
+            $("#jquery_jplayer_1").jPlayer("play", 0); // Begins playing 0 seconds into the media.
+        });
+
+        $("#jumpToTime").click(function () {
+            console.log("play 60");
+            $("#jquery_jplayer_1").jPlayer("play", 60); // Begins playing 60 seconds into the media.
+        });
+
+        // keystroke handling
+        $(document).keydown(function (event) {
+            //console.log("keyCode", event.keyCode);
+            $("#jquery_jplayer_1").bind($.jPlayer.event.timeupdate, function (event) {
+                document.currentTime = event.jPlayer.status.currentPercentRelative;
+            });
+
+            // handle cursor keys
+            var offset = .25;
+            if (event.keyCode == 37) {
+                // scrub back with left arrow
+                $("#jquery_jplayer_1").jPlayer("playHead", document.currentTime - offset);
+            } else if (event.keyCode == 39) {
+                // scrub forward with right arrow
+                $("#jquery_jplayer_1").jPlayer("playHead", document.currentTime + offset);
+            } else if (event.keyCode == 61) {
+                // mark event start with plus (+) sign
+                console.log("mark start", videoCurrentTime);
+            } else if (event.keyCode == 173) {
+                // mark event end with minus (-) sign
+                console.log("mark end", videoCurrentTime);
+            }
+        });
+
+
+    });
+</script>
+
+<div class="container" style="margin-top:50px;">
+    <div class="row">
+        <div data-ng-show="msg.text.length>0" class="{{msg.css}}" role="alert">{{ msg.text }}</div>
+    </div>
+    <div class="row">
+        <h4 class="modal-title">Video Title</h4>
+    </div>
+    <div class="row">
+        <button id="jumpToStart">Jump to 0 seconds</button>
+        <button id="jumpToTime">Jump to 60 seconds</button>
+        <button id="setMedia1">Set Media 1</button>
+        <button id="setMedia2">Set Media 2</button>
+    </div>
+    <div class="row">
+        <!-- videoJS
+
+               <video id="v1" class="video-js vjs-default-skin vjs-big-play-centered" controls
+                      preload="auto" width="100%"  poster="/assets/videos/output/lukedrills2.png"
+                      data-setup="{}">
+                   <source src="/assets/videos/output/lukedrills2.mp4" type='video/mp4'>
+                   <source src="/assets/videos/output/lukedrills2.webm" type='video/webm'>
+                   <source src="/assets/videos/output/lukedrills2.flv" type='video/flv'>
+                   <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+               </video>
+           -->
+
+        <!-- videoPlayer -->
+        <div id="jp_container_1" class="jp-video " role="application" aria-label="media player">
+            <div class="jp-type-single">
+                <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+                <div class="jp-gui">
+                    <div class="jp-video-play">
+                        <button class="jp-video-play-icon" role="button" tabindex="0">play</button>
+                    </div>
+                    <div class="jp-interface">
+                        <div class="jp-progress">
+                            <div class="jp-seek-bar">
+                                <div class="jp-play-bar"></div>
+                            </div>
+                        </div>
+                        <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+                        <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+                        <div class="jp-details">
+                            <div class="jp-title" aria-label="title">&nbsp;</div>
+                        </div>
+                        <div class="jp-controls-holder">
+                            <div class="jp-volume-controls">
+                                <button class="jp-mute" role="button" tabindex="0">mute</button>
+                                <button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+                                <div class="jp-volume-bar">
+                                    <div class="jp-volume-bar-value"></div>
+                                </div>
+                            </div>
+                            <div class="jp-controls">
+                                <button class="jp-play" role="button" tabindex="0">play</button>
+                                <button class="jp-stop" role="button" tabindex="0">stop</button>
+                            </div>
+                            <div class="jp-toggles">
+                                <button class="jp-repeat" role="button" tabindex="0">repeat</button>
+                                <button class="jp-full-screen" role="button" tabindex="0">full screen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="jp-no-solution">
+                    <span>Update Required</span>
+                    To play the media you will need to either update your browser to a recent version or update your
+                    <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="jplayer_inspector">
+        </div>
+    </div>
+</div>
+

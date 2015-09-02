@@ -1,0 +1,80 @@
+<style>
+    .video-js .vjs-control-bar {
+        display: block;
+    }
+    .video-js {
+        margin: 20px auto;
+    }
+    .vidwidth {
+        min-width: 900px;
+    }
+</style>
+
+<script>
+    // TODO remove localhost hard-coding
+    videojs.options.flash.swf = "http://localhost:8080/assets/libs/video.js/dist/video-js.swf"
+</script>
+
+<div ng-cloak class="container vidwidth">
+    <ol class="breadcrumb">
+        <li><a href="/">Math-<span>letics</span> Home</a></li>
+        <li class="active">Video Manager</li>
+    </ol>
+    <div class="row">
+        <div data-ng-show="msg.text.length>0" class="{{msg.css}}" role="alert">{{ msg.text }}</div>
+    </div>
+    <div class="alert alert-info">
+        currentTime: {{currentTime}}
+    </div>
+
+    <div class="btn-group" role="group" aria-label="...">
+        <button data-ng-click="playerNewTime(0)" id="jumpToStart" type="button" class="btn btn-default">Jump to 0 seconds</button>
+        <button data-ng-click="playerNewTime(60)" id="jumpToTime" type="button" class="btn btn-default">Jump to 60 seconds</button>
+        <!--<button data-ng-click="markCurrentTime()" id="markTime" type="button" class="btn btn-default">Mark Time</button>-->
+        <button data-ng-click="set1()" id="setMedia1" type="button" class="btn btn-default">Set Media 1</button>
+        <button data-ng-click="set2()" id="setMedia2" type="button" class="btn btn-default">Set Media 2</button>
+    </div>
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default" data-ng-click="markerPrev()">Prev</button>
+        <button type="button" class="btn btn-default" data-ng-click="markerNext()">Next</button>
+        <button type="button" class="btn btn-default" data-ng-click="markerAdd()">Add</button>
+        <button type="button" class="btn btn-default" data-ng-click="markerRemoveAll()">Remove All</button>
+        <button type="button" class="btn btn-default hidden" data-ng-click="markerUpdateTime()">Move All 1 sec</button>
+        <button type="button" class="btn btn-default" data-ng-click="markerResetAll()">Reset All</button>
+        <button type="button" class="btn btn-default hidden" data-ng-click="markerDestroy()">Destroy</button>
+    </div>
+    <div class="row">
+        <div class="col-xs-8">
+            <video id="v1"
+                   class="video-js vjs-default-skin vjs-big-play-centered"
+                   controls
+                   preload="auto"
+                   width="570px"
+                   height="325px"
+                   math-video-js>
+                <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web
+                    browser that <a href="//videojs.com/html5-video-support/" target="_blank">supports HTML5
+                        video</a></p>
+            </video>
+            <ul class="vjs-controls">
+                <li class="vjs-play-control vjs-play"><span></span></li>
+                <li class="vjs-progress-control">
+                    <ul class="vjs-progress-holder">
+                        <li class="vjs-load-progress"></li>
+                        <li class="vjs-play-progress"></li>
+                    </ul>
+                </li>
+                <li class="vjs-time-control"></li>
+            </ul>
+        </div>
+        <div class="col-xs-4-DONOTUSE panel panel-default" style="max-height: 350px; overflow-y: scroll;">
+            <div class="list-group event-list">
+                <a href="#" class="list-group-item activeX">
+                    <h4 class="list-group-item-heading">Marker</h4>
+                    <p class="list-group-item-text">Information will display here</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
