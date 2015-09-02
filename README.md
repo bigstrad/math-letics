@@ -30,15 +30,15 @@ module.exports = {
     video: {
         path: "full_path_to_directory_where_videos_reside_here"
     },
+    mongodb: {
+        uri: "mongodb://localhost:27017/math-letics"
+    },
     smtp: {
         service: "Gmail",
         auth: {
             user: "user_email_here",
             pass: "password_here"
         }
-    },
-    mongodb: {
-        uri: "mongodb://localhost:27017/math-letics"
     }
 };
 ```
