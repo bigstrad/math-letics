@@ -3,21 +3,21 @@
 // =================================================
 // modules
 // =================================================
-var express         = require('express');
-var app             = express();
-var passport        = require('passport');
-var moment          = require('moment');
-var session         = require('express-session');
-var router          = express.Router();
-var path            = require('path');
-var config          = require('./node_app_config/config');
+var express = require('express');
+var app = express();
+var passport = require('passport');
+var moment = require('moment');
+var session = require('express-session');
+var router = express.Router();
+var path = require('path');
+var config = require('./node_app_config/config');
 
 //
 // configuration
 //
 
 // set our port
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 8083;
 
 // require('./app_config/passport')(passport); // pass passport for configuration
 
@@ -60,9 +60,11 @@ app.use(errorHandler);
 
 // required for passport
 // reference - https://scotch.io/tutorials/easy-node-authentication-setup-and-local
-app.use(session({secret: config.session.secret,
-    saveUninitialized: true,
-    resave: true})); // session secret
+app.use(session({
+  secret: config.session.secret,
+  saveUninitialized: true,
+  resave: true
+})); // session secret
 //app.use(session({ secret: 'programmingisthebestworstthingever' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -93,21 +95,28 @@ exports = module.exports = app;
 // also see https://www.joyent.com/developers/node/design/errors
 
 function logErrors(err, req, res, next) {
-    console.log(moment().toISOString() + " - logErrors", err);
-    next(err);
+  console.log(moment().toISOString() + " - logErrors", err);
+  next(err);
 }
 
 function clientErrorHandler(err, req, res, next) {
-    if (req.xhr) {
-        res.status(500)
-            .send({status:500, text: moment().toISOString() + " - clientErrorHandler", type:'error'});
-    } else {
-        next(err);
-    }
+  if (req.xhr) {
+    res.status(500)
+      .send({
+        status: 500,
+        text: moment().toISOString() + " - clientErrorHandler",
+        type: 'error'
+      });
+  } else {
+    next(err);
+  }
 }
 
 function errorHandler(err, req, res, next) {
-    res.status(500)
-        .send({status:500, text: moment().toISOString() + " - errorHandler", type:'error'});
+  res.status(500)
+    .send({
+      status: 500,
+      text: moment().toISOString() + " - errorHandler",
+      type: 'error'
+    });
 }
-

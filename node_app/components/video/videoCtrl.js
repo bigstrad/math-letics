@@ -50,6 +50,7 @@ exports.add_routes = function (app, router, passport) {
 
         var stat = fs.statSync(actualPath);
         var total = stat.size;
+        console.log(req.headers);
         if (req.headers['range']) {
             var range = req.headers.range;
             console.log("range found==>",range);

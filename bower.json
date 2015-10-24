@@ -12,7 +12,7 @@
     "jplayer": "~2.9.2",
     "jquery": "latest",
     "moment": "latest",
-    "video.js": "~4.12.13",
+    "video.js": "~5.0.0",
     "videojs-markers": "~0.5.0"
   }
 }
