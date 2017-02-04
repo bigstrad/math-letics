@@ -5,7 +5,6 @@
 Dependencies on npm and bower
 
 
-
 ##STEP #2
 
 Run the following commands:
@@ -13,7 +12,6 @@ Run the following commands:
 - npm init
 
 - bower init
-
 
 
 ##STEP #3
